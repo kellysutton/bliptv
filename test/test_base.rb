@@ -17,6 +17,7 @@ class TC_BaseTest < Test::Unit::TestCase
     assert videos.size >= 12 # at the time of the writing of the test
     
     videos.each do |video|
+      assert_not_equal "", video.title # all videos must have a title
       assert_equal "onemonthhere", video.author
       assert_equal "false", video.explicit # I know for a fact that all videos are not explicit
     end
