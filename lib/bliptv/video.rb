@@ -56,9 +56,7 @@ module BlipTV
       @guid             = a['guid']
       @deleted          = a['deleted']
       @view_count       = a['views']
-      if a['tags']
-        @tags             = a['tags']['string'] ? a['tags']['string'].join(", ") : "" # TODO find a test that tests the tags
-      end
+      @tags             = parse_tags a['tags']
       @links            = a['links']
       @thumbnail_url    = a['thumbnail_url']
       @author           = a['created_by']['login'] if a['created_by']
@@ -68,6 +66,8 @@ module BlipTV
       @notes            = a['notes']
       @embed_url        = a['embed_url']
       @embed_code       = a['embed_code']
+      
+      
     end
     
     #
@@ -90,9 +90,9 @@ module BlipTV
       end
       
       if hash["response"]["payload"]["asset"].is_a?(Array) 
-       return hash["response"]["payload"]["asset"][0] # there may be several assets. In that case, read the first one
+        return hash["response"]["payload"]["asset"][0] # there may be several assets. In that case, read the first one
       else
-       return hash["response"]["payload"]["asset"]
+        return hash["response"]["payload"]["asset"]
       end
     end
     
@@ -102,6 +102,25 @@ module BlipTV
     #
     def refresh
       update_attributes_from_id(@id)
+    end
+    
+    private
+    
+    #
+    # Makes sense out of Blip.tv's strucutre of the <tt>tag</tt> element
+    #
+    # returns a String
+    #
+    def parse_tags(element)
+      if element.class == Hash && element['string']
+        if element['string'].class == Array
+          return element['string'].join(", ")
+        elsif element['string'].class == String 
+          return element['string']
+        end
+      else
+        return ""
+      end
     end
   end
 end

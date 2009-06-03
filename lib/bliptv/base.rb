@@ -78,9 +78,9 @@ module BlipTV
     #
     # Example:
     #
-    #  bliptv.find_all_videos_by_user("username", {})
+    #  bliptv.find_all_videos_by_user("username")
     #
-    # Returns array of BlipTV::Video instances.
+    # Returns array of BlipTV::Video objects.
     #
     def find_all_videos_by_user(username, options={})
       request = Net::HTTP.get(URI.parse("http://#{username}.blip.tv/posts/?skin=api"))
@@ -88,6 +88,23 @@ module BlipTV
       parse_videos_list(hash)
     end
   
+  
+    # Searches through and returns videos based on the <tt>search_string</tt>.
+    #
+    # This method is a direct call of Blip.tv's search method. You get what you get. No guarantees are made.
+    #
+    # Example:
+    #
+    #   bliptv.search_videos("cool stuff")
+    #
+    # Returns an array of BlipTV::Video objects
+    #
+    def search_videos(search_string)
+      request = Net::HTTP.get(URI.parse("http://www.blip.tv/search/?search=#{search_string}&skin=api"))
+      hash = Hash.from_xml(request)
+      parse_videos_list(hash)
+    end
+    
     private
   
     def parse_videos_list(hash)
