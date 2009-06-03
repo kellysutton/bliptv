@@ -74,7 +74,7 @@ module BlipTV
       raise EmptyResponseError if raw_response.blank?
       response_hash = Hash.from_xml(raw_response)
       if response_error = response_hash['error']
-        raise ResponseError.new(viddler_error_message(response_error))
+        raise ResponseError.new(bliptv_error_message(response_error))
       end
       response_hash
     end
@@ -115,7 +115,7 @@ module BlipTV
       http_method == 'post'
     end
     
-    def viddler_error_message(response_error)
+    def bliptv_error_message(response_error)
       description = response_error['description'] || ''
       details = response_error['details'] || ''      
       code = response_error['code'] || ''
