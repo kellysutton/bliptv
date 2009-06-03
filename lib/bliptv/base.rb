@@ -68,6 +68,34 @@ module BlipTV
 
       BlipTV::Video.new(request.response['post_url'])
     end
+    
+    
+    # Looks up all videos on Blip.tv with a given <tt>username</tt>
+    #
+    # Options hash could contain next values:
+    # * <tt>page</tt>: The "page number" of results to retrieve (e.g. 1, 2, 3);
+    # * <tt>per_page</tt>: The number of results to retrieve per page (maximum 100). If not specified, the default value equals 20.
+    #
+    # Example:
+    #
+    #  bliptv.find_all_videos_by_user("username", {})
+    #
+    # Returns array of BlipTV::Video instances.
+    #
+    def find_all_videos_by_user(username, options={})
+      request = Net::HTTP.get(URI.parse("http://#{username}.blip.tv/posts/?skin=api"))
+      hash = Hash.from_xml(request)
+      parse_videos_list(hash)
+    end
   
+    private
+  
+    def parse_videos_list(hash)
+      list = []
+      hash["response"]["payload"]["asset"].each do |entry| 
+        list << Video.new(entry)
+      end
+      list
+    end
   end
 end

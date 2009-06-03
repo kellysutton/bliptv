@@ -1,6 +1,5 @@
 require 'lib/bliptv'
 
-
 NO_TAGS = "\n\t\t\n\t"
 
 class TC_VideoTest < Test::Unit::TestCase
@@ -29,7 +28,7 @@ class TC_VideoTest < Test::Unit::TestCase
       assert_equal "D2215402-5017-11DE-9B2F-C1BCBB520399", video.guid           
       assert_equal "false", video.deleted        
       assert_equal nil, video.view_count # because we don't have the user login info
-      assert_equal NO_TAGS, video.tags
+      assert_equal "", video.tags
       
       links = {"link"=>
         [{"href"=>"http://blip.tv/file/2193230",
@@ -70,21 +69,45 @@ class TC_VideoTest < Test::Unit::TestCase
   def test_video_with_more_data
     video = BlipTV::Video.new(2141730)
     
-    assert_equal "", video.title         
-    assert_equal "", video.description   
-    assert_equal "", video.guid          
-    assert_equal "", video.deleted       
-    assert_equal "", video.view_count    
-    assert_equal "", video.tags          
-    assert_equal "", video.links         
-    assert_equal "", video.thumbnail_url 
-    assert_equal "", video.author        
-    assert_equal "", video.update_time   
-    assert_equal "", video.permissions   
-    assert_equal "", video.explicit      
-    assert_equal "", video.license       
-    assert_equal "", video.notes         
-    assert_equal "", video.embed_url     
-    assert_equal "", video.embed_code
+    assert_equal "Field Recon - One Month Here - Episode 9", video.title         
+    assert_equal "I spend most of today out in the field, scoping out challenge locations. Berghain looks eerie and deserted. It's likely the exact opposite at night. I need some swimming trunks...<br /><br /> Tweets read today from @<a href=\"http://twitter.com/iMuesli\">iMuesli</a> , @<a href=\"http://twitter.com/andrewseely\">andrewseely</a> , @<a href=\"http://twitter.com/JDFirst\">JDFirst</a> , @<a href=\"http://twitter.com/grasp183\">grasp183</a> and @<a href=\"http://twitter.com/mxchickmagnet86\">mxchickmagnet86</a><br /><br /> Thanks for watching!", video.description   
+    assert_equal "DB14423E-460F-11DE-B85A-FF0EAE6B9387", video.guid          
+    assert_equal "false", video.deleted       
+    assert_equal nil, video.view_count    
+    assert_equal "bergain, badeschiff, kelly sutton, berlin, germany, kreuzberg", video.tags          
+    
+    links = {"link"=>
+      [{"href"=>"http://blip.tv/file/2141730",
+        "rel"=>"alternate",
+        "type"=>"text/html"},
+       {"href"=>"http://blip.tv/file/2141730/?skin=api",
+        "rel"=>"alternate",
+        "type"=>"text/xml"},
+       {"href"=>"http://blip.tv/file/post/2141730/",
+        "rel"=>"service.edit",
+        "type"=>"text/html"},
+       {"href"=>"http://blip.tv/rss/2152384",
+        "rel"=>"alternate",
+        "type"=>"application/rss+xml"},
+       {"href"=>"http://blip.tv/file/2141730/?skin=atom",
+        "rel"=>"alternate",
+        "type"=>"application/atom+xml"},
+       {"href"=>"http://blip.tv/file/post/2141730/?skin=api",
+        "rel"=>"service.edit",
+        "type"=>"text/xml"}]}
+    assert_equal links, video.links         
+    assert_equal "onemonthhere", video.author        
+    assert_equal 0, video.update_time.to_i
+    assert_equal "false", video.explicit
+    
+    licensce = {"name"=>"Creative Commons Attribution 3.0",
+     "link"=>
+      {"href"=>"http://creativecommons.org/licenses/by/3.0/", "type"=>"text/html"}}
+    assert_equal licensce, video.license  
+    
+    notes = {"mode"=>"escaped", "type"=>"text/html"}     
+    assert_equal notes, video.notes         
+    assert_equal "http://blip.tv/play/AYGDsCSV5jE", video.embed_url     
+    assert_equal "<embed src=\"http://blip.tv/play/AYGDsCSV5jE\" type=\"application/x-shockwave-flash\" width=\"640\" height=\"510\" allowscriptaccess=\"always\" allowfullscreen=\"true\"></embed>", video.embed_code
   end
 end

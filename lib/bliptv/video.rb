@@ -1,7 +1,11 @@
 require 'net/http'
 require 'uri'
 
+
+
 module BlipTV
+
+  BLIP_TV_ID_EXPR = /\d{3,12}/
   
   # Raised when pinging Blip.tv for video information results in an error
   class VideoResponseError < BlipTVError #:nodoc:
@@ -30,24 +34,35 @@ module BlipTV
                   :embed_code
                   
     def initialize(blip_id) #:nodoc:
-      update_attributes_from_id(blip_id)
+      blip_id = blip_id.to_s if blip_id.class == Fixnum
+      
+      if blip_id.class == String && blip_id.match(BLIP_TV_ID_EXPR)
+        update_attributes_from_id(blip_id)
+      elsif blip_id.class == Hash
+        update_attributes_from_hash(blip_id)
+      end
     end
     
     def update_attributes_from_id(blip_id)
       @id = blip_id
       
       a = get_attributes
+      update_attributes_from_hash(a)
+    end
+    
+    def update_attributes_from_hash(a)
       @title            = a['title']
       @description      = a['description']
       @guid             = a['guid']
       @deleted          = a['deleted']
       @view_count       = a['views']
-      @tags             = a['tags'] # TODO find a test that tests the tags
+      if a['tags']
+        @tags             = a['tags']['string'] ? a['tags']['string'].join(", ") : "" # TODO find a test that tests the tags
+      end
       @links            = a['links']
       @thumbnail_url    = a['thumbnail_url']
-      @author           = a['created_by']['login']
+      @author           = a['created_by']['login'] if a['created_by']
       @update_time      = a['timestamp'] ? Time.at(a['update_time'].to_i) : nil
-      @permissions      = a['permissions'] ? a['permissions'] : nil
       @explicit         = a['explicit']
       @license          = a['license']
       @notes            = a['notes']
