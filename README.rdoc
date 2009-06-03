@@ -8,43 +8,43 @@ A Ruby gem for accessing the Blip.tv REST API (http://wiki.blip.tv/index.php/RES
 
 == Usage
 
-  While the Blip.tv is extremely simple to use, sometimes it's nice to have a wrapper
-  library to make life even easier. The BlipTV Ruby library is just that.
+While the Blip.tv is extremely simple to use, sometimes it's nice to have a wrapper
+library to make life even easier. The BlipTV Ruby library is just that.
+
+Let's say you want to upload a video:
   
-  Let's say you want to upload a video:
+  require 'bliptv'
   
-    require 'bliptv'
+  client = BlipTV::Base.new
+  
+  options = {
+    :username => "barack_obama",
+    :password => "michellexoxo",
+    :file => File.open('movie.mov'),
+    :title => "Ordering Hamburgers in DC",
+    :description => "I love this one burger joint, but the press keeps following me."
+  }
+  
+  video = client.upload_video(options) #=> BlipTV::Video
     
-    client = BlipTV::Base.new
-    
-    options = {
-      :username => "barack_obama",
-      :password => "michellexoxo",
-      :file => File.open('movie.mov'),
-      :title => "Ordering Hamburgers in DC",
-      :description => "I love this one burger joint, but the press keeps following me."
-    }
-    
-    video = client.upload_video(options) #=> BlipTV::Video
-    
-  And you're done! The upload_video method call returns a BlipTV::Video object
-  that you can play around with.
+And you're done! The upload_video method call returns a BlipTV::Video object
+that you can play around with.
   
   
 == Authors
 
-  Kelly Sutton (http://michaelkellysutton.com)
+Kelly Sutton (http://michaelkellysutton.com)
 
 == Features
 
-  Provides an easy way to interact with the Blip.tv API in Ruby.
+Provides an easy way to interact with the Blip.tv API in Ruby.
   
 == Special Thanks
 
-  This gem is extensively based on Shane Vitrana's Viddler
-  gem as well as the YouTubeG gem. Much of the code was simply
-  copied and then tweaked to fit the Blip.tv nomenclature
-  of certain calls. 
+This gem is extensively based on Shane Vitrana's Viddler
+gem as well as the YouTubeG gem. Much of the code was simply
+copied and then tweaked to fit the Blip.tv nomenclature
+of certain calls. 
 
 == License 
 
