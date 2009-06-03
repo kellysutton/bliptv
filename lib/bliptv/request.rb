@@ -23,6 +23,8 @@ module BlipTV
     attr_reader :headers, :params
   
     def initialize(http_method, method) #:nodoc:
+      puts "in BlipTV::Request.initialize"
+      puts "  http_method = #{http_method} and method = #{method}"
       @http_method = http_method.to_s
       @url = API_URL
       self.params = {:method => viddlerize(method)}    
@@ -54,11 +56,18 @@ module BlipTV
         set(:params, &block)
       end
     
+      puts post?
+      puts multipart?
       if post? and multipart?
+        puts "post and multipart"
         put_multipart_params_into_body
       else
         put_params_into_url
       end    
+      puts http_method
+      puts url
+      puts headers
+      puts body
       request = RestClient::Request.execute(
          :method => http_method, 
          :url => url, 
@@ -108,6 +117,7 @@ module BlipTV
     end
   
     def multipart? #:nodoc:
+      # TOOD let's be nice and do a File.exists?(v)
       if params.find{|k,v| v.is_a?(File)} then true else false end
     end
   

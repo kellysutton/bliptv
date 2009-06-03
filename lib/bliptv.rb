@@ -5,7 +5,15 @@ require 'rubygems'
 require 'active_support'
 require 'ostruct'
 
+require 'ext/array'
+require 'ext/hash'
+require 'ext/open_struct'
+
+require 'bliptv/api_spec'
 require 'bliptv/base'
+require 'bliptv/multipart_params'
+require 'bliptv/request'
+
 
 module BlipTV
 end
