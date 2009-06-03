@@ -65,7 +65,7 @@ module BlipTV
           p.send("#{param}=", value)
         end
       end
-      puts request.response
+
       BlipTV::Video.new(request.response['post_url'])
     end
   

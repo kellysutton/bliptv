@@ -65,7 +65,26 @@ class TC_VideoTest < Test::Unit::TestCase
       assert_equal "http://blip.tv/play/g4Q9gYbEEY35ZA", video.embed_url
       assert_equal "<embed src=\"http://blip.tv/play/g4Q9gYbEEY35ZA\" type=\"application/x-shockwave-flash\" width=\"854\" height=\"510\" allowscriptaccess=\"always\" allowfullscreen=\"true\"></embed>", video.embed_code
     end
-      
   end
   
+  def test_video_with_more_data
+    video = BlipTV::Video.new(2141730)
+    
+    assert_equal "", video.title         
+    assert_equal "", video.description   
+    assert_equal "", video.guid          
+    assert_equal "", video.deleted       
+    assert_equal "", video.view_count    
+    assert_equal "", video.tags          
+    assert_equal "", video.links         
+    assert_equal "", video.thumbnail_url 
+    assert_equal "", video.author        
+    assert_equal "", video.update_time   
+    assert_equal "", video.permissions   
+    assert_equal "", video.explicit      
+    assert_equal "", video.license       
+    assert_equal "", video.notes         
+    assert_equal "", video.embed_url     
+    assert_equal "", video.embed_code
+  end
 end

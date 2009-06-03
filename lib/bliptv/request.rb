@@ -59,10 +59,6 @@ module BlipTV
       else
         put_params_into_url
       end    
-
-      #puts headers
-      #puts body
-      File.open("/Users/msutton/Desktop/tmp2.txt", 'w') {|f| f.write(headers); f.write(body) }
       
       request = RestClient::Request.execute(
          :method => http_method, 
@@ -78,6 +74,7 @@ module BlipTV
     def parse_response(raw_response)
       raise EmptyResponseError if raw_response.blank?
       response_hash = Hash.from_xml(raw_response)
+      response_hash["post_url"] = raw_response.match(/\d{3,12}/)[0] # extracts the post_url, since from_xml isn't grabbing it
       if response_error = response_hash['error']
         raise ResponseError.new(bliptv_error_message(response_error))
       end
