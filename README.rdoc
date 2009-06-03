@@ -1,0 +1,7 @@
+= Blip.tv Ruby Library
+
+A Ruby gem for accessing the Blip.tv REST API (http://wiki.blip.tv/index.php/REST_Upload_API)
+
+== Install 
+
+gem install bliptv
