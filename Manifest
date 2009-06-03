@@ -1,4 +1,3 @@
-bliptv.gemspec
 lib/bliptv/api_spec.rb
 lib/bliptv/base.rb
 lib/bliptv/multipart_params.rb

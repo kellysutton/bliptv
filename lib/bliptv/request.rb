@@ -2,11 +2,11 @@ require 'rest_client'
 
 module BlipTV
   
-  # Raised when response from Viddler contains absolutely no data
+  # Raised when response from Blip.tv contains absolutely no data
   class EmptyResponseError < BlipTVError #:nodoc:
   end
   
-  # Raised when response from Viddler contains an error
+  # Raised when response from Blip.tv contains an error
   class ResponseError < BlipTVError #:nodoc:
     def initialize(message)
       super message
@@ -70,7 +70,6 @@ module BlipTV
          :headers => headers, 
          :payload => body
        )
-       puts request
        self.response = parse_response(request)
     end
   

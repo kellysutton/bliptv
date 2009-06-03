@@ -32,7 +32,6 @@ that you can play around with.
 
 More usage coming soon.
   
-  
 == Authors
 
 Kelly Sutton (http://michaelkellysutton.com)

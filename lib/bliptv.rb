@@ -9,8 +9,9 @@ require 'ext/array'
 require 'ext/hash'
 require 'ext/open_struct'
 
-require 'bliptv/api_spec'
 require 'bliptv/base'
+require 'bliptv/video'
+require 'bliptv/api_spec'
 require 'bliptv/multipart_params'
 require 'bliptv/request'
 

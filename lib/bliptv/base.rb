@@ -66,7 +66,7 @@ module BlipTV
         end
       end
       puts request.response
-      BlipTV::Video.new(request.response['video'])
+      BlipTV::Video.new(request.response['post_url'])
     end
   
   end
