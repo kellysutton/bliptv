@@ -40,7 +40,7 @@ class MultipartParams #:nodoc:
     mime_type = mime_types.empty? ? "application/octet-stream" : mime_types.first.content_type
     part = %Q[Content-Disposition: form-data; name="#{key}"; filename="#{filename}"\r\n]
     part += "Content-Transfer-Encoding: binary\r\n"
-    part += "Content-Type: #{mime_type}\r\n\r\n#{file.read}\r\n"
+    part += "Content-Type: video/mp4\r\n\r\n#{file.read}\r\n"
   end
 
   def text_to_multipart(key,value)

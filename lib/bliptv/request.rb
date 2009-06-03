@@ -17,17 +17,15 @@ module BlipTV
   class Request #:nodoc:
     
     API_URL = 'http://uploads.blip.tv/'
-    DEFAULT_HEADERS = {:accept => 'application/xml', :content_type => 'multipart/form-data'}
+    DEFAULT_HEADERS = {:accept => 'application/xml', :content_type => 'multi-part/form-data'}
   
     attr_accessor :url, :http_method, :response, :body
     attr_reader :headers, :params
   
     def initialize(http_method, method) #:nodoc:
-      puts "in BlipTV::Request.initialize"
-      puts "  http_method = #{http_method} and method = #{method}"
       @http_method = http_method.to_s
       @url = API_URL
-      self.params = {:method => viddlerize(method)}    
+      self.params = {} #{:method => viddlerize(method)}    
       self.headers = DEFAULT_HEADERS
     end
     
@@ -55,25 +53,24 @@ module BlipTV
       if block_given?
         set(:params, &block)
       end
-    
-      puts post?
-      puts multipart?
+
       if post? and multipart?
-        puts "post and multipart"
         put_multipart_params_into_body
       else
         put_params_into_url
       end    
-      puts http_method
-      puts url
-      puts headers
-      puts body
+
+      #puts headers
+      #puts body
+      File.open("/Users/msutton/Desktop/tmp2.txt", 'w') {|f| f.write(headers); f.write(body) }
+      
       request = RestClient::Request.execute(
          :method => http_method, 
          :url => url, 
          :headers => headers, 
          :payload => body
        )
+       puts request
        self.response = parse_response(request)
     end
   

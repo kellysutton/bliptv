@@ -52,12 +52,20 @@ module BlipTV
     def upload_video(new_attributes={})
       BlipTV::ApiSpec.check_attributes('videos.upload', new_attributes)
       
+      new_attributes = {
+        :post => "1",
+        :item_type => "file",
+        :skin => "xmlhttprequest",
+        :file_role => "Web"
+      }.merge(new_attributes) # blip.tv requires the "post" param to be set to 1
+      
       request = BlipTV::Request.new(:post, 'videos.upload')
       request.run do |p|
         for param, value in new_attributes
           p.send("#{param}=", value)
         end
       end
+      puts request.response
       BlipTV::Video.new(request.response['video'])
     end
   
