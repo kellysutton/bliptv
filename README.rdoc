@@ -29,6 +29,8 @@ Let's say you want to upload a video:
     
 And you're done! The upload_video method call returns a BlipTV::Video object
 that you can play around with.
+
+More usage coming soon.
   
   
 == Authors
