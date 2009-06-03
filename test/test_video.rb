@@ -61,6 +61,9 @@ class TC_VideoTest < Test::Unit::TestCase
       
       notes = {"mode"=>"escaped", "type"=>"text/html"}
       assert_equal notes, video.notes          
+      
+      assert_equal "http://blip.tv/play/g4Q9gYbEEY35ZA", video.embed_url
+      assert_equal "<embed src=\"http://blip.tv/play/g4Q9gYbEEY35ZA\" type=\"application/x-shockwave-flash\" width=\"854\" height=\"510\" allowscriptaccess=\"always\" allowfullscreen=\"true\"></embed>", video.embed_code
     end
       
   end

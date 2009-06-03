@@ -25,7 +25,9 @@ module BlipTV
                   :update_time,
                   :explicit,
                   :notes,
-                  :license
+                  :license,
+                  :embed_url,
+                  :embed_code
                   
     def initialize(blip_id) #:nodoc:
       update_attributes_from_id(blip_id)
@@ -40,21 +42,17 @@ module BlipTV
       @guid             = a['guid']
       @deleted          = a['deleted']
       @view_count       = a['views']
-      @tags             = a['tags']
-      #@url              = a['url']
+      @tags             = a['tags'] # TODO find a test that tests the tags
       @links            = a['links']
       @thumbnail_url    = a['thumbnail_url']
       @author           = a['created_by']['login']
-      #@length_seconds   = a['length_seconds'].to_i
-      #@comment_count    = a['comment_count'].to_i
       @update_time      = a['timestamp'] ? Time.at(a['update_time'].to_i) : nil
       @permissions      = a['permissions'] ? a['permissions'] : nil
       @explicit         = a['explicit']
       @license          = a['license']
       @notes            = a['notes']
-      #@comments         = a['comment_list'].values.flatten.collect do |comment| 
-      #                      BlipTV::Comment.new(comment)
-      #                    end if a['comment_list']
+      @embed_url        = a['embed_url']
+      @embed_code       = a['embed_code']
     end
     
     #
@@ -78,9 +76,9 @@ module BlipTV
       
       if hash["response"]["payload"]["asset"].is_a?(Array) 
        return hash["response"]["payload"]["asset"][0] # there may be several assets. In that case, read the first one
-     else
+      else
        return hash["response"]["payload"]["asset"]
-     end
+      end
     end
     
     #
@@ -88,13 +86,7 @@ module BlipTV
     # etc.
     #
     def refresh
-      # TODO fill out this method
+      update_attributes_from_id(@id)
     end
-    
-    # Returns HTML code for video embedding.
-    def embed_code(options={})
-      
-    end
-  
   end
 end
