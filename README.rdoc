@@ -27,8 +27,18 @@ Let's say you want to upload a video:
   
   video = client.upload_video(options) #=> BlipTV::Video
     
-And you're done! The upload_video method call returns a BlipTV::Video object
+The upload_video method call returns a BlipTV::Video object
 that you can play around with.
+
+Or what if you wanted a list of all videos by a user? Also easy:
+
+  require 'bliptv'
+
+  client = BlipTV::Base.new
+  
+  video_list = client.find_all_videos_by_user("barack_obama") 
+  
+find_all_videos_by_user will return a list of BlipTV::Video objects.
 
 More usage coming soon.
   
