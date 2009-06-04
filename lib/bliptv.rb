@@ -4,6 +4,8 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'rubygems'
 require 'active_support'
 require 'ostruct'
+require 'net/http'
+require 'uri'
 
 require 'ext/array'
 require 'ext/hash'

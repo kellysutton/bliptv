@@ -11,5 +11,6 @@ License.txt
 Manifest
 Rakefile
 README.rdoc
+test/test_base.rb
 test/test_suite.rb
 test/test_video.rb

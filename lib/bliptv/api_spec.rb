@@ -17,6 +17,16 @@ module BlipTV
         :interactive_post
       ]
     }
+    
+    VIDEOS_DELETE_ATTRS = {
+      :required => [
+        :userlogin,
+        :password
+        ],
+      :optional => [
+        :username # kind of sloppy, because a user is unlikely to specify both a userlogin AND a username
+      ]
+    }
   
     def self.check_attributes(bliptv_method, attributes)
       valid_attributes = bliptv_method_to_const(bliptv_method)
@@ -25,7 +35,7 @@ module BlipTV
     
       # blip calls it a "userlogin" instead of a "username"
       if attributes[:username] != nil 
-        atrributes[:userlogin] = attributes[:username]
+        attributes[:userlogin] = attributes[:username]
         attributes.delete(:username)
       end
     

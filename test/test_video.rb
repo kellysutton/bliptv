@@ -18,7 +18,7 @@ class TC_VideoTest < Test::Unit::TestCase
     a.each do |video|
       assert_not_equal    nil, video
       assert_instance_of  BlipTV::Video, video
-
+  
       
       assert_equal "Super Mario Galaxy 2", video.title
       
@@ -69,6 +69,7 @@ class TC_VideoTest < Test::Unit::TestCase
   def test_video_with_more_data
     video = BlipTV::Video.new(2141730)
     
+    assert_match /\d{3,12}/, video.id
     assert_equal "Field Recon - One Month Here - Episode 9", video.title         
     assert_equal "I spend most of today out in the field, scoping out challenge locations. Berghain looks eerie and deserted. It's likely the exact opposite at night. I need some swimming trunks...<br /><br /> Tweets read today from @<a href=\"http://twitter.com/iMuesli\">iMuesli</a> , @<a href=\"http://twitter.com/andrewseely\">andrewseely</a> , @<a href=\"http://twitter.com/JDFirst\">JDFirst</a> , @<a href=\"http://twitter.com/grasp183\">grasp183</a> and @<a href=\"http://twitter.com/mxchickmagnet86\">mxchickmagnet86</a><br /><br /> Thanks for watching!", video.description   
     assert_equal "DB14423E-460F-11DE-B85A-FF0EAE6B9387", video.guid          
@@ -109,5 +110,26 @@ class TC_VideoTest < Test::Unit::TestCase
     assert_equal notes, video.notes         
     assert_equal "http://blip.tv/play/AYGDsCSV5jE", video.embed_url     
     assert_equal "<embed src=\"http://blip.tv/play/AYGDsCSV5jE\" type=\"application/x-shockwave-flash\" width=\"640\" height=\"510\" allowscriptaccess=\"always\" allowfullscreen=\"true\"></embed>", video.embed_code
+  end
+  
+  def test_video_delete
+    base = BlipTV::Base.new
+    
+    options = {
+      :userlogin => "bliptv_ruby_gem",
+      :password => "thisissosecret",
+      :file => File.open('/Users/msutton/Desktop/output.mp4'), # change this to a file of your own
+      :title => "test title",
+      :description => "test description"
+    }
+
+    video = base.upload_video(options) #=> BlipTV::Video
+    
+    options = {
+      :userlogin => "bliptv_ruby_gem",
+      :password => "thisissosecret"
+    }
+    
+    video.delete!(options)
   end
 end

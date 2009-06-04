@@ -14,6 +14,12 @@ module BlipTV
     end
   end
   
+  class VideoDeleteError < BlipTVError
+    def intialize(message)
+      super message
+    end
+  end
+  
   # This class wraps Blip.tv's video's information.
   class Video
   
@@ -51,6 +57,8 @@ module BlipTV
     end
     
     def update_attributes_from_hash(a)
+      
+      @id               = a['id'] if @id == nil
       @title            = a['title']
       @description      = a['description']
       @guid             = a['guid']
@@ -66,8 +74,6 @@ module BlipTV
       @notes            = a['notes']
       @embed_url        = a['embed_url']
       @embed_code       = a['embed_code']
-      
-      
     end
     
     #
@@ -104,6 +110,23 @@ module BlipTV
       update_attributes_from_id(@id)
     end
     
+    #
+    # delete! will delete the file from Blip.tv
+    #
+    def delete!(creds = {}, section = "file", reason = "because")
+      BlipTV::ApiSpec.check_attributes('videos.delete', creds)
+      
+      reason = reason.gsub(" ", "%20") # TODO write a method to handle this and other illegalities of URL
+      
+      if creds[:username] && !creds[:userlogin]
+        creds[:userlogin] = creds[:username]
+      end
+      url = "http://www.blip.tv/?userlogin=#{creds[:userlogin]}&password=#{creds[:password]}&cmd=delete&s=file&id=#{@id}&reason=#{reason}&skin=api"
+      request = Net::HTTP.get(URI.parse(url))
+      hash = Hash.from_xml(request)
+      make_sure_video_was_deleted(hash)
+    end
+    
     private
     
     #
@@ -120,6 +143,19 @@ module BlipTV
         end
       else
         return ""
+      end
+    end
+    
+    #
+    # make_sure_video_was_deleted analyzes the response <tt>hash</tt>
+    # to make sure it was a success
+    #
+    # raises a descriptive BlipTV::VideoDeleteError
+    #
+    def make_sure_video_was_deleted(hash)
+      # TODO have a special case for authentication required?
+      if hash["response"]["status"] != "OK"
+        raise VideoDeleteError("#{hash['response']['error']['code']}: #{hash['response']['error']['message']} ") 
       end
     end
   end

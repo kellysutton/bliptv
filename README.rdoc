@@ -49,6 +49,15 @@ Kelly Sutton (http://michaelkellysutton.com)
 == Features
 
 Provides an easy way to interact with the Blip.tv API in Ruby.
+
+== Caveats
+
+Given a bug currently in the implementation of Ruby's URI class, Blip.tv
+usernames with are not currently supported. There are definite workarounds 
+planned in the future. The reason why this bug exists is because the 
+current URI implements RFC 2396 URI specification while RFC 3986,
+which deprecates 2396, is the norm as of January 2005 
+(http://www.ietf.org/rfc/rfc3986.txt).
   
 == Special Thanks
 
