@@ -86,7 +86,7 @@ module BlipTV
       url, path = "#{username}.blip.tv", "/posts/?skin=api"
       request = Net::HTTP.get(url, path)
       hash = Hash.from_xml(request)
-      parse_videos_list(hash)
+      hash == nil ? [] : parse_videos_list(hash)
     end
   
   
@@ -110,8 +110,12 @@ module BlipTV
   
     def parse_videos_list(hash)
       list = []
-      hash["response"]["payload"]["asset"].each do |entry| 
-        list << Video.new(entry)
+      begin
+        hash["response"]["payload"]["asset"].each do |entry| 
+          list << Video.new(entry)
+        end
+      rescue NoMethodError
+        list = []
       end
       list
     end
