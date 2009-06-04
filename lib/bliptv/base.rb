@@ -23,6 +23,7 @@ module BlipTV
   #
   class Base
     
+    # TODO allow user to specify userlogin and password on intialize
     def initialize
     end
     

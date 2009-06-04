@@ -4,13 +4,13 @@ module BlipTV
       :required => [
         :title,
         :file,
+        :userlogin,
+        :password
       ],   
       :optional => [
         :thumbnail,
         :nsfw,
         :description,
-        :userlogin,
-        :password,
         :keywords,
         :categories,
         :license,

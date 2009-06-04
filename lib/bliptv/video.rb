@@ -156,7 +156,11 @@ module BlipTV
     def make_sure_video_was_deleted(hash)
       # TODO have a special case for authentication required?
       if hash["response"]["status"] != "OK"
-        raise VideoDeleteError("#{hash['response']['error']['code']}: #{hash['response']['error']['message']} ") 
+        begin
+          raise VideoDeleteError.new("#{hash['response']['error']['code']}: #{hash['response']['error']['message']} ") 
+        rescue NoMethodError # TODO irony!
+          raise VideoDeleteError.new(hash.to_yaml)
+        end
       end
     end
   end
