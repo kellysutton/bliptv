@@ -58,7 +58,7 @@ module BlipTV
     
     def update_attributes_from_hash(a)
       
-      @id               = a['id'] if @id == nil
+      @id               = a['item_id'] if @id == nil
       @title            = a['title']
       @description      = a['description']
       @guid             = a['guid']
@@ -121,6 +121,7 @@ module BlipTV
       if creds[:username] && !creds[:userlogin]
         creds[:userlogin] = creds[:username]
       end
+      
       url, path = "www.blip.tv", "/?userlogin=#{creds[:userlogin]}&password=#{creds[:password]}&cmd=delete&s=file&id=#{@id}&reason=#{reason}&skin=api"
       request = Net::HTTP.get(url, path)
       hash = Hash.from_xml(request)
