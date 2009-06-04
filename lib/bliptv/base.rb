@@ -83,8 +83,8 @@ module BlipTV
     # Returns array of BlipTV::Video objects.
     #
     def find_all_videos_by_user(username, options={})
-      uri = "http://#{username}.blip.tv/posts/?skin=api"
-      request = Net::HTTP.get(URI.parse(uri))
+      url, path = "#{username}.blip.tv", "/posts/?skin=api"
+      request = Net::HTTP.get(url, path)
       hash = Hash.from_xml(request)
       parse_videos_list(hash)
     end

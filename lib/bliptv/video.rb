@@ -121,8 +121,8 @@ module BlipTV
       if creds[:username] && !creds[:userlogin]
         creds[:userlogin] = creds[:username]
       end
-      url = "http://www.blip.tv/?userlogin=#{creds[:userlogin]}&password=#{creds[:password]}&cmd=delete&s=file&id=#{@id}&reason=#{reason}&skin=api"
-      request = Net::HTTP.get(URI.parse(url))
+      url, path = "www.blip.tv", "/?userlogin=#{creds[:userlogin]}&password=#{creds[:password]}&cmd=delete&s=file&id=#{@id}&reason=#{reason}&skin=api"
+      request = Net::HTTP.get(url, path)
       hash = Hash.from_xml(request)
       make_sure_video_was_deleted(hash)
     end
