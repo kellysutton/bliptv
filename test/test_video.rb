@@ -30,25 +30,24 @@ class TC_VideoTest < Test::Unit::TestCase
       assert_equal nil, video.view_count # because we don't have the user login info
       assert_equal "", video.tags
       
-      links = {"link"=>
-        [{"href"=>"http://blip.tv/file/2193230",
-          "rel"=>"alternate",
-          "type"=>"text/html"},
-         {"href"=>"http://blip.tv/file/2193230/?skin=api",
-          "rel"=>"alternate",
-          "type"=>"text/xml"},
-         {"href"=>"http://blip.tv/file/post/2193230/",
-          "rel"=>"service.edit",
-          "type"=>"text/html"},
-         {"href"=>"http://blip.tv/rss/2204077",
-          "rel"=>"alternate",
-          "type"=>"application/rss+xml"},
-         {"href"=>"http://blip.tv/file/2193230/?skin=atom",
-          "rel"=>"alternate",
-          "type"=>"application/atom+xml"},
-         {"href"=>"http://blip.tv/file/post/2193230/?skin=api",
-          "rel"=>"service.edit",
-          "type"=>"text/xml"}]}
+      links = [{"href"=>"http://blip.tv/file/2193230",
+        "rel"=>"alternate",
+        "type"=>"text/html"},
+       {"href"=>"http://blip.tv/file/2193230/?skin=api",
+        "rel"=>"alternate",
+        "type"=>"text/xml"},
+       {"href"=>"http://blip.tv/file/post/2193230/",
+        "rel"=>"service.edit",
+        "type"=>"text/html"},
+       {"href"=>"http://blip.tv/rss/2204077",
+        "rel"=>"alternate",
+        "type"=>"application/rss+xml"},
+       {"href"=>"http://blip.tv/file/2193230/?skin=atom",
+        "rel"=>"alternate",
+        "type"=>"application/atom+xml"},
+       {"href"=>"http://blip.tv/file/post/2193230/?skin=api",
+        "rel"=>"service.edit",
+        "type"=>"text/xml"}]
       
       assert_equal links, video.links          
       assert_equal "kotaku", video.author         
@@ -77,25 +76,24 @@ class TC_VideoTest < Test::Unit::TestCase
     assert_equal nil, video.view_count    
     assert_equal "bergain, badeschiff, kelly sutton, berlin, germany, kreuzberg", video.tags          
     
-    links = {"link"=>
-      [{"href"=>"http://blip.tv/file/2141730",
-        "rel"=>"alternate",
-        "type"=>"text/html"},
-       {"href"=>"http://blip.tv/file/2141730/?skin=api",
-        "rel"=>"alternate",
-        "type"=>"text/xml"},
-       {"href"=>"http://blip.tv/file/post/2141730/",
-        "rel"=>"service.edit",
-        "type"=>"text/html"},
-       {"href"=>"http://blip.tv/rss/2152384",
-        "rel"=>"alternate",
-        "type"=>"application/rss+xml"},
-       {"href"=>"http://blip.tv/file/2141730/?skin=atom",
-        "rel"=>"alternate",
-        "type"=>"application/atom+xml"},
-       {"href"=>"http://blip.tv/file/post/2141730/?skin=api",
-        "rel"=>"service.edit",
-        "type"=>"text/xml"}]}
+    links = [{"href"=>"http://blip.tv/file/2141730",
+      "rel"=>"alternate",
+      "type"=>"text/html"},
+     {"href"=>"http://blip.tv/file/2141730/?skin=api",
+      "rel"=>"alternate",
+      "type"=>"text/xml"},
+     {"href"=>"http://blip.tv/file/post/2141730/",
+      "rel"=>"service.edit",
+      "type"=>"text/html"},
+     {"href"=>"http://blip.tv/rss/2152384",
+      "rel"=>"alternate",
+      "type"=>"application/rss+xml"},
+     {"href"=>"http://blip.tv/file/2141730/?skin=atom",
+      "rel"=>"alternate",
+      "type"=>"application/atom+xml"},
+     {"href"=>"http://blip.tv/file/post/2141730/?skin=api",
+      "rel"=>"service.edit",
+      "type"=>"text/xml"}]
     assert_equal links, video.links         
     assert_equal "onemonthhere", video.author        
     assert_equal 0, video.update_time.to_i

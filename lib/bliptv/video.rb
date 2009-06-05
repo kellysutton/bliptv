@@ -65,7 +65,7 @@ module BlipTV
       @deleted          = a['deleted']
       @view_count       = a['views']
       @tags             = parse_tags a['tags']
-      @links            = a['links']
+      @links            = a['links']['link']
       @thumbnail_url    = a['thumbnail_url']
       @author           = a['created_by']['login'] if a['created_by']
       @update_time      = a['timestamp'] ? Time.at(a['update_time'].to_i) : nil
