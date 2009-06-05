@@ -1,8 +1,6 @@
 require 'net/http'
 require 'uri'
 
-
-
 module BlipTV
 
   BLIP_TV_ID_EXPR = /\d{3,12}/
