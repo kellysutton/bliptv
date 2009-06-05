@@ -1,18 +1,19 @@
 = Blip.tv Ruby Library
 
-A Ruby gem for accessing the Blip.tv REST API (http://wiki.blip.tv/index.php/REST_Upload_API)
+A Ruby gem for accessing the blip.tv API (http://wiki.blip.tv/index.php/REST_Upload_API)
 
 == Install 
 
-  sudo gem install bliptv --source http://gems.github.com
+  sudo gem install kellysutton-bliptv --source http://gems.github.com
 
 == Usage
 
-While the Blip.tv is extremely simple to use, sometimes it's nice to have a wrapper
-library to make life even easier. The BlipTV Ruby library is just that.
+While the blip.tv API is extremely simple to use, sometimes it's nice to have a wrapper
+library to make life even easier. The BlipTV Ruby gem is just that.
 
 Let's say you want to upload a video:
   
+  require 'rubygems'
   require 'bliptv'
   
   client = BlipTV::Base.new
@@ -32,6 +33,7 @@ that you can play around with.
 
 Or what if you wanted a list of all videos by a user? Also easy:
 
+  require 'rubygems'
   require 'bliptv'
 
   client = BlipTV::Base.new
@@ -48,13 +50,13 @@ Kelly Sutton (http://michaelkellysutton.com)
 
 == Features
 
-Provides an easy way to interact with the Blip.tv API in Ruby.
+Provides an easy way to interact with the blip.tv API in Ruby.
   
 == Special Thanks
 
 This gem is extensively based on Shane Vitrana's Viddler
 gem as well as the YouTubeG gem. Much of the code was simply
-copied and then tweaked to fit the Blip.tv nomenclature
+copied and then tweaked to fit the blip.tv nomenclature
 of certain calls. 
 
 == License 
