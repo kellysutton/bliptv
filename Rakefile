@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('bliptv', '0.1.0') do |p|
+Echoe.new('bliptv', '0.1.1') do |p|
   p.description               = "A Ruby library from Blip.tv"
   p.url                       = "http://github.com/kellysutton/bliptv"
   p.author                    = "Michael Kelly Sutton"
