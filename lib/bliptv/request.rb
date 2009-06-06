@@ -74,8 +74,11 @@ module BlipTV
     def parse_response(raw_response)
       raise EmptyResponseError if raw_response.blank?
       response_hash = Hash.from_xml(raw_response)
-      if response_error = response_hash["otter_responses"]["response"]["error"]
-        raise ResponseError.new(bliptv_error_message(response_error))
+      begin
+        if response_error = response_hash["otter_responses"]["response"]["error"]
+          raise ResponseError.new(bliptv_error_message(response_error))
+        end
+      rescue # we don't care if it fails, that means it works
       end
       response_hash["post_url"] = raw_response.match(/\d{3,12}/)[0] # extracts the post_url, since from_xml isn't grabbing it
       response_hash
