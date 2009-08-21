@@ -1,0 +1,83 @@
+= Blip.tv Ruby Library
+
+A Ruby gem for accessing the blip.tv API (http://wiki.blip.tv/index.php/REST_Upload_API)
+
+== Install 
+
+  sudo gem install kellysutton-bliptv --source http://gems.github.com
+
+== Usage
+
+While the blip.tv API is extremely simple to use, sometimes it's nice to have a wrapper
+library to make life even easier. The BlipTV Ruby gem is just that.
+
+Let's say you want to upload a video:
+  
+  require 'rubygems'
+  require 'bliptv'
+  
+  client = BlipTV::Base.new
+  
+  options = {
+    :username => "barack_obama",
+    :password => "michellexoxo",
+    :file => File.open('movie.mov'),
+    :title => "Ordering Hamburgers in DC",
+    :description => "I love this one burger joint, but the press keeps following me."
+  }
+  
+  video = client.upload_video(options) #=> BlipTV::Video
+    
+The upload_video method call returns a BlipTV::Video object
+that you can play around with.
+
+Or what if you wanted a list of all videos by a user? Also easy:
+
+  require 'rubygems'
+  require 'bliptv'
+
+  client = BlipTV::Base.new
+  
+  video_list = client.find_all_videos_by_user("barack_obama") 
+  
+find_all_videos_by_user will return a list of BlipTV::Video objects.
+
+More usage coming soon.
+  
+== Authors
+
+Kelly Sutton (http://michaelkellysutton.com)
+
+== Features
+
+Provides an easy way to interact with the blip.tv API in Ruby.
+  
+== Special Thanks
+
+This gem is extensively based on Shane Vitrana's Viddler
+gem as well as the YouTubeG gem. Much of the code was simply
+copied and then tweaked to fit the blip.tv nomenclature
+of certain calls. 
+
+== License 
+
+Copyright (c) 2009 Michael Kelly Sutton
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
