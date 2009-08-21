@@ -4,7 +4,9 @@ A Ruby gem for accessing the blip.tv API (http://wiki.blip.tv/index.php/REST_Upl
 
 == Install 
 
-  sudo gem install kellysutton-bliptv --source http://gems.github.com
+  gem sources -a http://gems.github.com
+  sudo gem install kellysutton-bliptv
+  sudo gem install rest-client
 
 == Usage
 
