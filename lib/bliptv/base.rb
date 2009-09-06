@@ -74,17 +74,20 @@ module BlipTV
     # Looks up all videos on Blip.tv with a given <tt>username</tt>
     #
     # Options hash could contain next values:
-    # * <tt>page</tt>: The "page number" of results to retrieve (e.g. 1, 2, 3);
-    # * <tt>per_page</tt>: The number of results to retrieve per page (maximum 100). If not specified, the default value equals 20.
+    # * <tt>page</tt>: The "page number" of results to retrieve (e.g. 1, 2, 3); if not specified, the default value equals 1.
+    # * <tt>pagelen</tt>: The number of results to retrieve per page (maximum 100). If not specified, the default value equals 20.
     #
     # Example:
     #
     #  bliptv.find_all_videos_by_user("username")
+    #    or
+    #  bliptv.find_all_videos_by_user("username", {:page => 1, :pagelen => 20})
     #
     # Returns array of BlipTV::Video objects.
     #
     def find_all_videos_by_user(username, options={})
-      url, path = "#{username}.blip.tv", "/posts/?skin=api"
+      options[:page] ||= 1; options[:pagelen] ||= 20
+      url, path = "#{username}.blip.tv", "/posts/?skin=api&page=#{options[:page]}&pagelen=#{options[:pagelen]}"
       request = Net::HTTP.get(url, path)
       hash = Hash.from_xml(request)
       hash == nil ? [] : parse_videos_list(hash)
