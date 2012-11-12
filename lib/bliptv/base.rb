@@ -16,17 +16,17 @@ module BlipTV
       'This method is not yet implemented.'
     end
   end
-  
+
   #
   # This is the class that should be instantiated for basic
   # communication with the Blip.tv API
   #
   class Base
-    
+
     # TODO allow user to specify userlogin and password on intialize
     def initialize
     end
-    
+
     # Implements the Blip.tv REST Upload API
     #
     # <tt>new_attributes</tt> hash should contain next required keys:
@@ -48,18 +48,18 @@ module BlipTV
     #
     #  bliptv.upload_video(:title => 'Check out this guy getting kicked in the nuts!', :file => File.open('/movies/nuts.mov'))
     #
-    # Returns BlipTV::Video instance. 
+    # Returns BlipTV::Video instance.
     #
     def upload_video(new_attributes={})
       BlipTV::ApiSpec.check_attributes('videos.upload', new_attributes)
-      
+
       new_attributes = {
         :post => "1",
         :item_type => "file",
         :skin => "xmlhttprequest",
         :file_role => "Web"
       }.merge(new_attributes) # blip.tv requires the "post" param to be set to 1
-      
+
       request = BlipTV::Request.new(:post, 'videos.upload')
       request.run do |p|
         for param, value in new_attributes
@@ -69,8 +69,8 @@ module BlipTV
 
       BlipTV::Video.new(request.response['post_url'].to_s)
     end
-    
-    
+
+
     # Looks up all videos on Blip.tv with a given <tt>username</tt>
     #
     # Options hash could contain next values:
@@ -92,8 +92,8 @@ module BlipTV
       hash = Hash.from_xml(request)
       hash == nil ? [] : parse_videos_list(hash)
     end
-  
-  
+
+
     # Searches through and returns videos based on the <tt>search_string</tt>.
     #
     # This method is a direct call of Blip.tv's search method. You get what you get. No guarantees are made.
@@ -109,13 +109,13 @@ module BlipTV
       hash = Hash.from_xml(request)
       parse_videos_list(hash)
     end
-    
+
     private
-  
+
     def parse_videos_list(hash)
       list = []
       begin
-        hash["response"]["payload"]["asset"].each do |entry| 
+        hash["response"]["payload"]["asset"].each do |entry|
           list << Video.new(entry)
         end
       rescue NoMethodError

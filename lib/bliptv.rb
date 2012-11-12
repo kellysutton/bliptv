@@ -1,6 +1,6 @@
 #
 # This is the main entry point for the library. All files in the project are
-# included here, as well as anything required across the project. 
+# included here, as well as anything required across the project.
 #
 
 $:.unshift(File.dirname(__FILE__)) unless

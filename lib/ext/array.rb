@@ -1,5 +1,5 @@
 class Array #:nodoc:
-  
+
   # Extraceted from Ruby Facets:
   # Converts a two-element associative array into a hash.
   def to_h(arrayed=nil)
